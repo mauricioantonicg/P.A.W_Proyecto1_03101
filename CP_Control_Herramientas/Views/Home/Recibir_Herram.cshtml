@@ -3,5 +3,56 @@
     ViewBag.Title = "Recibir Herramienta";
 }
 
-<h2>Recibir Herramienta</h2>
+<main>
+    <h2>Recibir Herramienta</h2>
+
+    <form id="prestar_Herramiennta">
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex justify-content-xl-end flex-wrap">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex flex-column">
+                <div class="col-12 col-sm-12 col-md-11 col-lg-11 col-xl-11">
+                    <label for="buscarColabDevolHerram" class="badge bg-secondary">Buscar colaborador</label>
+                    <div class="input-group">
+                        <input type="search" name="buscarColabDevolHerram" class="form-control rounded mb-3 mw-100" placeholder="Cédula" aria-label="Search" aria-describedby="search-addon" />
+                        <button type="button" class="btn btn-outline-secondary mb-3">Buscar</button>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-11 col-lg-11 col-xl-11">
+                    <label for="nombreCompleto" class="badge bg-secondary">Nombre</label>
+                    <input type="text" name="nombreCompleto" value="" class="form-control mb-3 mw-100" placeholder="Nombre completo" />
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex flex-column">
+                <div class="">
+                    <label for="fechaDePrestamoHerram" class="badge bg-secondary">Fecha de registro del prestamo de la herramienta</label>
+                    <input type="date" name="fechaDePrestamoHerram" value="" class="form-control mb-3 mw-100" readonly />
+                </div>
+
+                <div class="">
+                    <label for="fechaDevolHerram" class="badge bg-secondary">Fecha de registro de devolución de la herramienta</label>
+                    <input type="date" name="fechaDevolHerram" value="" class="form-control mb-3 mw-100" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <label for="cantidHerramPrestadas" class="badge bg-secondary">Cantidad de herramientas prestadas</label>
+            <input type="number" name="cantidHerramPrestadas" value="" class="form-control mb-3 mw-100" placeholder="Cantidad de herramientas prestadas" readonly />
+        </div>
+
+        <div>
+            <label for="listaHerramPrest" class="badge bg-secondary">Lista de herramientas prestadas</label>
+            
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex p-2 mt-2">
+            <input type="button" name="btn_CancelarRegDevolHerram" value="Cancelar" class="btn btn-outline-secondary btn-sm mw-100" />
+            <input type="button" name="btn_LimpiarRegDevolHerram" value="Limpiar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
+            <input type="button" name="btn_GuardarRegDevolHerram" value="Guardar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
+        </div>
+    </form>
+</main>
+
 

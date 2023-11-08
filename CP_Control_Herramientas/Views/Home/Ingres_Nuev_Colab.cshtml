@@ -4,7 +4,52 @@
 }
 
 <main>
-    <h2>Ingrear nuevo colaborador</h2>
+    <h2>Registrar nuevo colaborador</h2>
+
+    <form id="ingresar_Nuevo_Colaborador">
+
+        <div>
+            <label for="cedula" class="badge bg-secondary">Cedula</label>
+            <input type="text" name="cedula" value="" class="form-control mb-3 mw-100" placeholder="Cédula" />
+        </div>
+
+        <div>
+            <label for="nombre" class="badge bg-secondary">Nombre</label>
+            <input type="text" name="nombre" value="" class="form-control mb-3 mw-100" placeholder="Nombre" />
+        </div>
+
+        <div>
+            <label for="apellido1" class="badge bg-secondary">Primer Apellido</label>
+            <input type="text" name="apellido1" value="" class="form-control mb-3 mw-100" placeholder="Primer apellido" />
+        </div>
+
+        <div>
+            <label for="apellido2" class="badge bg-secondary">Segundo Apellido</label>
+            <input type="text" name="apellido2" value="" class="form-control mb-3 mw-100" placeholder="Segundo apellido" />
+        </div>
+
+        <div>
+            <label for="fechaRegistro" class="badge bg-secondary">Fecha de registro</label>
+            <input type="date" name="fechaRegistro" value="" class="form-control mb-3 mw-100" readonly />
+        </div>
+
+        <div>
+            <label for="estadoPersona" class="badge bg-secondary">Estado</label>
+            <select class="form-select mw-100" aria-label="Default select example">
+                <option value="">Seleccione una opción</option>
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+            </select>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex p-2 mt-2">
+            <input type="button" name="btn_CancelarRegColab" value="Cancelar" class="btn btn-outline-secondary btn-sm mw-100" />
+            <input type="button" name="btn_LimpiarRegColab" value="Limpiar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
+            <input type="button" name="btn_GuardarRegColab" value="Guardar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
+        </div>
+        
+    </form>
+
 </main>
 
 

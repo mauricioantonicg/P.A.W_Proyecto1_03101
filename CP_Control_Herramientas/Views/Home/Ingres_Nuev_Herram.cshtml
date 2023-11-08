@@ -3,5 +3,37 @@
     ViewBag.Title = "Ingresar nueva Herramieta";
 }
 
-<h2>Ingresar Nueva Herramienta</h2>
+<main>
+    <form id="ingresar_Nueva_Herramienta">
+
+        <h2>Registrar nueva herramienta</h2>
+
+        <div>
+            <label for="codigoHerramienta" class="badge bg-secondary">Codigo de la herramienta</label>
+            <input type="text" name="codigoHerramienta" value="" class="form-control mb-3 mw-100" placeholder="Codigo herramienta" />
+        </div>
+
+        <div>
+            <label for="nombreHerramienta" class="badge bg-secondary">Nombre de la herramienta</label>
+            <input type="text" name="nombreHerramienta" value="" class="form-control mb-3 mw-100" placeholder="Nombre de la herramienta" />
+        </div>
+
+        <div>
+            <label for="cantidadHerramienta" class="badge bg-secondary">Cantidada herramientas</label>
+            <input type="text" name="cantidadHerramienta" value="" class="form-control mb-3 mw-100" placeholder="Cantidad de herramientas" />
+        </div>
+
+        <div>
+            <label for="descripcionHerramienta" class="badge bg-secondary">Descripción de la herramienta</label>
+            <input type="text" name="descripcionHerramienta" value="" class="form-control mb-3 mw-100" placeholder="Descripción de la herramienta" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex p-2 mt-2">
+            <input type="button" name="btn_CancelarRegHerram" value="Cancelar" class="btn btn-outline-secondary btn-sm mw-100" />
+            <input type="button" name="btn_LimpiarRegHerram" value="Limpiar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
+            <input type="button" name="btn_GuardarRegHerram" value="Guardar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
+        </div>
+    </form>
+</main>
+
 

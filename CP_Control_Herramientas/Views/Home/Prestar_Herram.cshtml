@@ -3,5 +3,63 @@
     ViewBag.Title = "Prestar Herramineta";
 }
 
-<h2>Prestar Herramienta</h2>
+<main>
+    <h2>Prestar herramienta</h2>
+
+    <form id="prestar_Herramiennta">
+
+        <div>
+            <label for="buscarColabPrestHerram" class="badge bg-secondary">Buscar colaborador</label>
+            <div class="input-group">
+                <input type="search" name="buscarColabPrestHerram" class="form-control rounded mb-3" placeholder="Cédula" aria-label="Search" aria-describedby="search-addon" />
+                <button type="button" class="btn btn-outline-secondary mb-3">Buscar</button>
+            </div>
+        </div>
+
+        <div>
+            <label for="nombreCompleto" class="badge bg-secondary">Nombre</label>
+            <input type="text" name="nombreCompleto" value="" class="form-control mb-3 mw-100" placeholder="Nombre completo" />
+        </div>
+
+        <div>
+            <label for="cantidHerramPrestadas" class="badge bg-secondary">Cantidad de herramientas prestadas</label>
+            <input type="number" name="cantidHerramPrestadas" value="" class="form-control mb-3 mw-100" placeholder="Cantidad de herramientas prestadas" readonly />
+        </div>
+
+        <div>
+            <label for="buscarHerramPrest" class="badge bg-secondary">Buscar herramienta</label>
+            <div class="input-group">
+                <input type="search" name="buscarHerramPrest" class="form-control rounded mb-3" placeholder="Nombre herramienta" aria-label="Search" aria-describedby="search-addon" />
+                <button type="button" class="btn btn-outline-secondary mb-3">Buscar</button>
+            </div>
+        </div>
+
+        <div>
+            <label for="cantidHerramDisponib" class="badge bg-secondary">Cantidad de herramientas disponible</label>
+            <input type="number" name="cantidHerramDisponib" value="" class="form-control mb-3 mw-100" placeholder="Cantidad disponible" readonly />
+        </div>
+
+        <div>
+            <label for="cantidHerramAPrestar" class="badge bg-secondary">Cantidad de herramientas a prestar</label>
+            <input type="number" name="cantidHerramAPrestar" value="" class="form-control mb-3 mw-100" placeholder="Cantidad disponible" />
+        </div>
+
+        <div>
+            <label for="fechaDePrestamoHerram" class="badge bg-secondary">Fecha de registro del prestamo de la herramienta</label>
+            <input type="date" name="fechaDePrestamoHerram" value="" class="form-control mb-3 mw-100" readonly />
+        </div>
+
+        <div>
+            <label for="fechaDevolHerram" class="badge bg-secondary">Fecha de registro de devolución de la herramienta</label>
+            <input type="date" name="fechaDevolHerram" value="" class="form-control mb-3 mw-100" />
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex p-2 mt-2">
+            <input type="button" name="btn_CancelarRegPrestHerram" value="Cancelar" class="btn btn-outline-secondary btn-sm mw-100" />
+            <input type="button" name="btn_LimpiarRegPrestHerram" value="Limpiar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
+            <input type="button" name="btn_GuardarRegPrestHerram" value="Guardar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
+        </div>
+    </form>
+</main>
+
 
