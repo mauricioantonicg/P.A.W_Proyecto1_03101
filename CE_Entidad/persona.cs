@@ -11,7 +11,7 @@ namespace CE_Entidad
       public string nombrePersona { get; set; }
       public string apellido1 { get; set; }
       public string apellido2 { get; set; }
-      public DateTime fechaRegistro { get; set; }
+      public string fechaRegistro { get; set; }
       public bool estadoPersona { get; set; }
    }
 }

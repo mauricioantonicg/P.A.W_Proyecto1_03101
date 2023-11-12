@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
+using CE_Entidad;
+using CN_Negocio;
 
 namespace CP_Control_Herramientas.Controllers
 {
@@ -38,7 +41,15 @@ namespace CP_Control_Herramientas.Controllers
          return View();
       }
 
+      //Consultar lista de personas de la base de datos 
+      public JsonResult ListaUsuarios()
+      {
+         List<persona> listaPersonas = new List<persona>();
 
+         listaPersonas = new CNX_ET_Persona().listaUsuarios();
+
+         return Json(listaPersonas, JsonRequestBehavior.AllowGet);
+      }
 
    }
 }

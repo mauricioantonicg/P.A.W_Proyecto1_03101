@@ -29,39 +29,29 @@ namespace CD_Datos
 
                conexionBD.Open();
 
-               using (SqlDataReader reader = cmd.ExecuteReader())
-               {
-                  while (reader.Read())
-                  {
-                     listaUsuariosBD.Add(new persona() {
-                        idPersona = Convert.ToInt32(reader[idPersona]),
-                        nombrePersona = reader[nombrePersona].ToString(),
-                     //this.apellido1 = apellido1;
-                     //this.apellido2 = apellido2;
-                     //this.fechaRegistro = fechaRegistro;
-                     //this.estadoPersona = estadoPersona;
-                  });
-               }
-            }
+               using (SqlDataReader reader = cmd.ExecuteReader() ) {
+                  while (reader.Read()) {
 
-         }
+                     listaUsuariosBD.Add(new persona() {
+                        idPersona = Convert.ToInt32(reader["idPersona"]),
+                        nombrePersona = reader["nombrePersona"].ToString(),
+                        apellido1 = reader["apellido1"].ToString(),
+                        apellido2 = reader["apellido2"].ToString(),
+                        fechaRegistro = string.Format("{0:dd-MM-yyyy}", reader["fechaRegistro"]),
+                        estadoPersona = Convert.ToBoolean(reader["estadoPersona"])
+                     });
+                  }
+               }
+
+            }
          }
          catch (Exception)
          {
 
-            throw;
+            listaUsuariosBD = new List<persona>();
          }
 
-
-
-
-
-         return listaUsuariosBD;
-      
-      } 
-
-      
-      
-
+         return listaUsuariosBD;      
+      }         
    }
 }
