@@ -41,7 +41,7 @@ namespace CP_Control_Herramientas.Controllers
          return View();
       }
 
-      //Consultar lista de personas de la base de datos 
+      //Consultar lista de personas de la base de datos y retornarla como un archivo Json 
       public JsonResult ListaUsuarios()
       {
          List<persona> listaPersonas = new List<persona>();
@@ -51,5 +51,21 @@ namespace CP_Control_Herramientas.Controllers
          return Json(listaPersonas, JsonRequestBehavior.AllowGet);
       }
 
+
+      //Registrar persona en base de datos
+      [HttpPost]
+      public JsonResult GuardarUsuario(persona person)
+      {
+
+         object resultado;
+         string mensaje = string.Empty;
+
+
+         resultado = new CNX_ET_Persona().RegistrarPersonaBD(person, out mensaje);
+
+
+
+         return Json(new { resultado = resultado, mensage = mensaje }, JsonRequestBehavior.AllowGet);
+      }
    }
 }

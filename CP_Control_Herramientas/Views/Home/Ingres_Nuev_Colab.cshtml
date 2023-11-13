@@ -10,32 +10,32 @@
 
         <div>
             <label for="cedula" class="badge bg-secondary">Cedula</label>
-            <input type="text" name="cedula" value="" class="form-control mb-3 mw-100" placeholder="Cédula" />
+            <input type="text" name="cedula" value="" class="txtCedulaPersona form-control mb-3 mw-100" placeholder="Cédula" />
         </div>
 
         <div>
             <label for="nombre" class="badge bg-secondary">Nombre</label>
-            <input type="text" name="nombre" value="" class="form-control mb-3 mw-100" placeholder="Nombre" />
+            <input type="text" name="nombre" value="" class="txtNombrePersona form-control mb-3 mw-100" placeholder="Nombre" />
         </div>
 
         <div>
             <label for="apellido1" class="badge bg-secondary">Primer Apellido</label>
-            <input type="text" name="apellido1" value="" class="form-control mb-3 mw-100" placeholder="Primer apellido" />
+            <input type="text" name="apellido1" value="" class="txtApellido1Persona form-control mb-3 mw-100" placeholder="Primer apellido" />
         </div>
 
         <div>
             <label for="apellido2" class="badge bg-secondary">Segundo Apellido</label>
-            <input type="text" name="apellido2" value="" class="form-control mb-3 mw-100" placeholder="Segundo apellido" />
+            <input type="text" name="apellido2" value="" class="txtApellido2Persona form-control mb-3 mw-100" placeholder="Segundo apellido" />
         </div>
 
         <div>
-            <label for="fechaRegistro" class="badge bg-secondary">Fecha de registro</label>
-            <input type="date" name="fechaRegistro" value="" class="form-control mb-3 mw-100" readonly />
+            <label for="fechaRegistroPersona" class="badge bg-secondary">Fecha de registro</label>
+            <input type="date" name="fechaRegistroPersona" value="" class="dtFechaRegPersona form-control mb-3 mw-100" readonly />
         </div>
 
         <div>
             <label for="estadoPersona" class="badge bg-secondary">Estado</label>
-            <select class="form-select mw-100" aria-label="Default select example">
+            <select class="slt_EstadoPersona form-select mw-100" aria-label="Default select example">
                 <option value="">Seleccione una opción</option>
                 <option value="1">Activo</option>
                 <option value="0">Inactivo</option>
@@ -43,13 +43,87 @@
         </div>
 
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex p-2 mt-2">
-            <input type="button" name="btn_CancelarRegColab" value="Cancelar" class="btn btn-outline-secondary btn-sm mw-100" />
-            <input type="button" name="btn_LimpiarRegColab" value="Limpiar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
-            <input type="button" name="btn_GuardarRegColab" value="Guardar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
+            <input type="button" name="btn_CancelarRegColab" value="Cancelar" class="btn_CancelarRegPersona btn btn-outline-secondary btn-sm mw-100" onclick="CancelarRegPersona()" />
+            <input type="button" name="btn_LimpiarRegColab" value="Limpiar" class="btn_LimpiarRegPersona btn btn-outline-secondary btn-sm mw-100 ms-1" onclick="LimpiarRegPersona()" />
+            <input type="button" name="btn_GuardarRegColab" value="Guardar" class="btn_GuardarRegPersona btn btn-outline-secondary btn-sm mw-100 ms-1" onclick="GuardarRegPersona()" />
         </div>
-        
-    </form>
 
+    </form>
 </main>
+
+<script>
+    window.onload = function () {
+        //Establecer la fecha del registro del colaborador
+        var date = new Date();
+        var mes = date.getUTCMonth() + 1;
+        $(".dtFechaRegPersona").val(date.getFullYear() + "-" + mes + "-" + date.getDate());
+    }
+
+    function CancelarRegPersona() {
+        $(".txtCedulaPersona").val("");
+        $(".txtNombrePersona").val("");
+        $(".txtApellido1Persona").val("");
+        $(".txtApellido2Persona").val("");
+        $(".slt_EstadoPersona").val("");
+    }
+
+    function LimpiarRegPersona() {
+        $(".txtCedulaPersona").val("");
+        $(".txtNombrePersona").val("");
+        $(".txtApellido1Persona").val("");
+        $(".txtApellido2Persona").val("");
+        $(".slt_EstadoPersona").val("");
+    }
+
+    function GuardarRegPersona() {
+        //Datos del formulario persona
+        var idPersona = $(".txtCedulaPersona").val();
+        var nombrePersona = $(".txtNombrePersona").val();
+        var apellido1 = $(".txtApellido1Persona").val();
+        var apellido2 = $(".txtApellido2Persona").val();
+        var fechaRegistro = $(".dtFechaRegPersona").val();
+        var estadoPersona = $(".slt_EstadoPersona").val();
+        if (estadoPersona == 1) {
+            estadoPersona = true;
+        } else {
+            estadoPersona = false;
+        }        
+
+        var Persona = {
+            idPersona,
+            nombrePersona,
+            apellido1,
+            apellido2,
+            fechaRegistro,
+            estadoPersona
+        }
+
+        //Enviar datos al controlador
+        jQuery.ajax({
+            url: '@Url.Action("GuardarUsuario", "Home")',
+            type: "POST",
+            data: JSON.stringify({ person: Persona }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+
+                /*debugger;*/
+
+                if (data.resultado == 1) {
+                    alert("Usuario registrado satisfactoriamente");
+                    LimpiarRegPersona();
+                } else {
+                    alert("El usuario ya existe");
+                }
+            },
+            error: function (error) {
+                alert(error);
+            },
+            beforedSend: function () {
+
+            }
+        });
+    }
+</script>
 
 
