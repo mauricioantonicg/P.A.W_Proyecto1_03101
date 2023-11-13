@@ -43,7 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BDConexion.cs" />
+    <Compile Include="CNX_Herramienta.cs" />
     <Compile Include="CNX_Persona.cs" />
+    <Compile Include="CNX_PrestamoHerramienta.cs" />
     <Compile Include="CNX_Recibir_Herramienta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

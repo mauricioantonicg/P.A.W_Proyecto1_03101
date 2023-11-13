@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CNX_ET_DevolHerramienta.cs" />
+    <Compile Include="CNX_ET_Herramienta.cs" />
     <Compile Include="CNX_ET_Persona.cs" />
+    <Compile Include="CNX_ET_PrestamoHerramienta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

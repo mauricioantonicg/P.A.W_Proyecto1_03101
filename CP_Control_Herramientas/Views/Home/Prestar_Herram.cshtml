@@ -13,21 +13,21 @@
             <div class="col-12 col-sm-12 col-md-7 col-lg-5 col-xl-4" >
                 <label for="buscarColabPrestHerram" class="badge bg-secondary">Buscar colaborador</label>
                 <div class="input-group">
-                    <input type="search" name="buscarColabPrestHerram" class="form-control rounded mb-3" placeholder="Cédula" aria-label="Search" aria-describedby="search-addon" />
-                    <button type="button" class="btn btn-outline-secondary mb-3">Buscar</button>
+                    <input type="search" name="buscarColabPrestHerram" class="srch_idUsuario form-control rounded mb-3" placeholder="Cédula" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="button" class="btn_BuscarPersona btn btn-outline-secondary mb-3" onclick="BuscarDatosPersona()">Buscar</button>
                 </div>
             </div>
 
             <div class="col-12 col-sm-12 col-md-5 col-lg-7 col-xl-8" >
                 <label for="nombreCompleto" class="badge bg-secondary">Nombre</label>
-                <input type="text" name="nombreCompleto" value="" class="form-control mb-3 mw-100" placeholder="Nombre completo" />
+                <input type="text" name="nombreCompleto" value="" class="txt_NombrePersona form-control mb-3 mw-100" placeholder="Nombre completo" />
             </div>
 
         </div>        
 
         <div>
             <label for="cantidHerramPrestadas" class="badge bg-secondary">Cantidad de herramientas prestadas al colaborador actualmente</label>
-            <input type="number" name="cantidHerramPrestadas" value="" class="form-control mb-3 mw-100" placeholder="Cantidad de herramientas prestadas" readonly />
+            <input type="number" name="cantidHerramPrestadas" value="" class="num_CantHerramPrestadas form-control mb-3 mw-100" placeholder="Cantidad de herramientas prestadas" readonly />
         </div>
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex flex-wrap">
@@ -35,14 +35,14 @@
             <div class="col-12 col-sm-12 col-md-7 col-lg-5 col-xl-4">
                 <label for="buscarHerramPrest" class="badge bg-secondary">Buscar herramienta</label>
                 <div class="input-group">
-                    <input type="search" name="buscarHerramPrest" class="form-control rounded mb-3" placeholder="Nombre herramienta" aria-label="Search" aria-describedby="search-addon" />
-                    <button type="button" class="btn btn-outline-secondary mb-3">Buscar</button>
+                    <input type="search" name="buscarHerramPrest" class="sch_BuscaHerram form-control rounded mb-3" placeholder="Nombre herramienta" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="button" class="btn_BuscarHerram btn btn-outline-secondary mb-3">Buscar</button>
                 </div>
             </div>
 
             <div class="col-12 col-sm-12 col-md-5 col-lg-7 col-xl-8">
                 <label for="cantidHerramDisponib" class="badge bg-secondary">Cantidad de herramientas disponible</label>
-                <input type="number" name="cantidHerramDisponib" value="" class="form-control mb-3 mw-100" placeholder="Cantidad disponible para prestamo" readonly />
+                <input type="number" name="cantidHerramDisponib" value="" class="num_CantHerraDisp form-control mb-3 mw-100" placeholder="Cantidad disponible para prestamo" readonly />
             </div>
 
         </div>
@@ -50,7 +50,7 @@
 
         <div>
             <label for="cantidHerramAPrestar" class="badge bg-secondary">Cantidad de herramientas a prestar</label>
-            <input type="number" name="cantidHerramAPrestar" value="" class="form-control mb-3 mw-100" placeholder="Cantidad herramientas solicitadas" />
+            <input type="number" name="cantidHerramAPrestar" value="" class="num_CantHerraAPrest form-control mb-3 mw-100" placeholder="Cantidad herramientas solicitadas" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex flex-wrap">
@@ -58,24 +58,120 @@
             <div class="col-12 col-sm-12 col-md-7 col-lg-5 col-xl-4">
                 <div class="col-12 col-sm-12 col-md-11 col-lg-11 col-xl-10">
                     <label for="fechaDePrestamoHerram" class="badge bg-secondary">Fecha de registro del prestamo de la herramienta</label>
-                    <input type="date" name="fechaDePrestamoHerram" value="" class="form-control mb-3 mw-100" readonly />
+                    <input type="date" name="fechaDePrestamoHerram" value="" class="dt_FechaPresHerram form-control mb-3 mw-100" readonly />
                 </div>
                 
             </div>
 
             <div class="col-12 col-sm-12 col-md-5 col-lg-7 col-xl-8">
                 <label for="fechaDevolHerram" class="badge bg-secondary">Fecha de registro de devolución de la herramienta</label>
-                <input type="date" name="fechaDevolHerram" value="" class="form-control mb-3 mw-100" />
+                <input type="date" name="fechaDevolHerram" value="" class="dt_FechaDevolHerram form-control mb-3 mw-100" />
             </div>
 
         </div>        
 
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex p-2 mt-2">
-            <input type="button" name="btn_CancelarRegPrestHerram" value="Cancelar" class="btn btn-outline-secondary btn-sm mw-100" />
-            <input type="button" name="btn_LimpiarRegPrestHerram" value="Limpiar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
-            <input type="button" name="btn_GuardarRegPrestHerram" value="Guardar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
+            <input type="button" name="btn_CancelarRegPrestHerram" value="Cancelar" class="btn_CancRegPrstHerram btn btn-outline-secondary btn-sm mw-100" onclick="CancelarRegPrestamoHerramienta()" />
+            <input type="button" name="btn_LimpiarRegPrestHerram" value="Limpiar" class="btn_LimpRegPrstHerram btn btn-outline-secondary btn-sm mw-100 ms-1" onclick="LimpiarRegPrestamoHerramienta()" />
+            <input type="button" name="btn_GuardarRegPrestHerram" value="Guardar" class="btn_GuardRegPrstHerram btn btn-outline-secondary btn-sm mw-100 ms-1" onclick="GuardarRegPrestamoHerramienta()" />
         </div>
     </form>
 </main>
+
+<script>
+    window.onload = function () {
+
+        //Establecer la fecha actual
+        var date = new Date();
+        var mes = date.getUTCMonth() + 1;
+        $(".dt_FechaPresHerram").val(date.getFullYear() + "-" + mes + "-" + date.getDate());
+
+    }
+
+    function BuscarDatosPersona() {
+
+        var idUsuario = $(".srch_idUsuario").val();
+
+        //Consultar por un colaborador
+        jQuery.ajax({
+            url: '@Url.Action("BuscarUsuario", "Home")',
+            type: "Get",
+            data: { idUsuario },
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+
+                if (data.length > 0) {
+                    $(".srch_idUsuario").val(data[0].idPersona);
+                    $(".txt_NombrePersona").val(data[0].nombrePersona + " " + data[0].apellido1 + " " + data[0].apellido2);
+                    $(".num_CantHerramPrestadas").val(data.length);
+                } else {
+                    alert("El usuario no esta registrado o no tiene herramientas prestadas");
+                }                               
+            },
+            error: function (error) {
+                alert(error);
+            },
+            beforedSend: function () {
+
+            }
+        });
+    }
+
+    function CancelarRegPrestamoHerramienta() {
+        $(".srch_idUsuario").val("");
+        $(".txt_NombrePersona").val("");
+        $(".num_CantHerramPrestadas").val("");
+    }
+
+    function LimpiarRegPrestamoHerramienta() {
+        $(".srch_idUsuario").val("");
+        $(".txt_NombrePersona").val("");
+        $(".num_CantHerramPrestadas").val("");
+    }
+
+    @*function GuardarRegPrestamoHerramienta() {
+        //Datos del formulario herramienta
+        var idHerramienta = $(".txt_CodigoHerramienta").val();
+        var nombreHerramienta = $(".txt_NombreHerramienta").val();
+        var descripcionHerramienta = $(".txt_DescripHerramienta").val();
+        var cantidHerramienta = $(".txt_cantHerramientas ").val();
+
+
+        var Herramienta = {
+            idHerramienta,
+            nombreHerramienta,
+            descripcionHerramienta,
+            cantidHerramienta
+        }
+
+        //Enviar datos al controlador
+        jQuery.ajax({
+            url: '@Url.Action("GuardarHerramienta", "Home")',
+            type: "POST",
+            data: JSON.stringify({ herramient: Herramienta }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+
+                /*debugger;*/
+
+                if (data.resultado == 1) {
+                    alert("Herramienta registrada satisfactoriamente");
+                    LimpiarRegHerramienta();
+                    ObtenerIdHerramienta();
+                } else {
+                    alert("La herramienta ya existe");
+                }
+            },
+            error: function (error) {
+                alert(error);
+            },
+            beforedSend: function () {
+
+            }
+        });
+    }*@
+</script>
 
 

@@ -51,6 +51,17 @@ namespace CP_Control_Herramientas.Controllers
          return Json(listaPersonas, JsonRequestBehavior.AllowGet);
       }
 
+      //Consultar lista de personas de la base de datos y retornarla como un archivo Json 
+      [HttpGet]
+      public JsonResult BuscarUsuario(int idUsuario)
+      {
+         List<persona> listaPersonas = new List<persona>();
+
+         listaPersonas = new CNX_ET_PrestamoHerramienta().listaPersonaPrestHerram(idUsuario);
+
+         return Json(listaPersonas, JsonRequestBehavior.AllowGet);
+      }
+
 
       //Registrar persona en base de datos
       [HttpPost]
@@ -62,6 +73,33 @@ namespace CP_Control_Herramientas.Controllers
 
 
          resultado = new CNX_ET_Persona().RegistrarPersonaBD(person, out mensaje);
+
+
+
+         return Json(new { resultado = resultado, mensage = mensaje }, JsonRequestBehavior.AllowGet);
+      }
+
+      //Consultar siguiente id de la herramienta 
+      [HttpGet]
+      public string SiguienteIdHerramienta()
+      {
+         string cantidadHerramientas;
+
+         cantidadHerramientas = new CNX_ET_Herramienta().CantidadHerramientasBD();
+
+         return cantidadHerramientas;
+      }
+
+      //Registrar herramienta en base de datos
+      [HttpPost]
+      public JsonResult GuardarHerramienta(herramienta herramient)
+      {
+
+         object resultado;
+         string mensaje = string.Empty;
+
+
+         resultado = new CNX_ET_Herramienta().RegistrarHerramientaBD(herramient, out mensaje);
 
 
 

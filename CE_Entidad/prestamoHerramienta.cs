@@ -15,4 +15,6 @@ namespace CE_Entidad
       public bool estadoPrestamoHerramienta { get; set; }
 
    }
+
+
 }

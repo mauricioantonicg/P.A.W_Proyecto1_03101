@@ -10,30 +10,117 @@
 
         <div>
             <label for="codigoHerramienta" class="badge bg-secondary">Codigo de la herramienta</label>
-            <input type="text" name="codigoHerramienta" value="" class="form-control mb-3 mw-100" placeholder="Codigo herramienta" />
+            <input type="text" name="codigoHerramienta" value="" class="txt_CodigoHerramienta form-control mb-3 mw-100" placeholder="Codigo herramienta" readonly />
         </div>
 
         <div>
             <label for="nombreHerramienta" class="badge bg-secondary">Nombre de la herramienta</label>
-            <input type="text" name="nombreHerramienta" value="" class="form-control mb-3 mw-100" placeholder="Nombre de la herramienta" />
+            <input type="text" name="nombreHerramienta" value="" class="txt_NombreHerramienta form-control mb-3 mw-100" placeholder="Nombre de la herramienta" />
         </div>
 
         <div>
-            <label for="cantidadHerramienta" class="badge bg-secondary">Cantidada herramientas</label>
-            <input type="text" name="cantidadHerramienta" value="" class="form-control mb-3 mw-100" placeholder="Cantidad de herramientas" />
+            <label for="cantidadHerramienta" class="badge bg-secondary">Cantidada herramientas nuevas</label>
+            <input type="text" name="cantidadHerramienta" value="1" class="txt_cantHerramientas form-control mb-3 mw-100" placeholder="Cantidad de herramientas" />
         </div>
 
         <div>
             <label for="descripcionHerramienta" class="badge bg-secondary">Descripción de la herramienta</label>
-            <input type="text" name="descripcionHerramienta" value="" class="form-control mb-3 mw-100" placeholder="Descripción de la herramienta" />
+            <input type="text" name="descripcionHerramienta" value="" class="txt_DescripHerramienta form-control mb-3 mw-100" placeholder="Descripción de la herramienta" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex p-2 mt-2">
-            <input type="button" name="btn_CancelarRegHerram" value="Cancelar" class="btn btn-outline-secondary btn-sm mw-100" />
-            <input type="button" name="btn_LimpiarRegHerram" value="Limpiar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
-            <input type="button" name="btn_GuardarRegHerram" value="Guardar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
+            <input type="button" name="btn_CancelarRegHerram" value="Cancelar" class="btn_CancelarRegHerramienta btn btn-outline-secondary btn-sm mw-100" onclick="CancelarRegHerramienta()" />
+            <input type="button" name="btn_LimpiarRegHerram" value="Limpiar" class=" btn_LimpiarRegHerramienta btn btn-outline-secondary btn-sm mw-100 ms-1" onclick="LimpiarRegHerramienta()" />
+            <input type="button" name="btn_GuardarRegHerram" value="Guardar" class="btn_GuardarRegHerramienta btn btn-outline-secondary btn-sm mw-100 ms-1" onclick="GuardarRegHerramienta()" />
         </div>
     </form>
 </main>
+
+<script>
+    window.onload = function () {
+
+        ObtenerIdHerramienta();
+
+    }
+
+    function ObtenerIdHerramienta() {
+
+        //Consultar al controlador por la cantidad de herramientas
+        jQuery.ajax({
+            url: '@Url.Action("SiguienteIdHerramienta", "Home")',
+            type: "Get",
+            success: function (data) {
+
+                if (data != "-1") {
+                    $(".txt_CodigoHerramienta").val(data);
+                } else {
+                    alert("Fallo la conexion con la base de datos");
+                }
+
+            },
+            error: function (error) {
+                alert(error);
+            },
+            beforedSend: function () {
+
+            }
+        });
+    }
+
+    function CancelarRegHerramienta() {
+        $(".txt_NombreHerramienta").val("");
+        $(".txt_cantHerramientas").val("1");
+        $(".txt_DescripHerramienta").val("");
+    }
+
+    function LimpiarRegHerramienta() {
+        $(".txt_NombreHerramienta").val("");
+        $(".txt_cantHerramientas").val("1");
+        $(".txt_DescripHerramienta").val("");
+    }
+
+    function GuardarRegHerramienta() {
+        //Datos del formulario herramienta
+        var idHerramienta = $(".txt_CodigoHerramienta").val();
+        var nombreHerramienta = $(".txt_NombreHerramienta").val();
+        var descripcionHerramienta = $(".txt_DescripHerramienta").val();
+        var cantidHerramienta = $(".txt_cantHerramientas ").val();
+
+
+        var Herramienta = {
+            idHerramienta,
+            nombreHerramienta,
+            descripcionHerramienta,
+            cantidHerramienta
+        }
+
+        //Enviar datos al controlador
+        jQuery.ajax({
+            url: '@Url.Action("GuardarHerramienta", "Home")',
+            type: "POST",
+            data: JSON.stringify({ herramient: Herramienta }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+
+                /*debugger;*/
+
+                if (data.resultado == 1) {
+                    alert("Herramienta registrada satisfactoriamente");
+                    LimpiarRegHerramienta();
+                    ObtenerIdHerramienta();
+                } else {
+                    alert("La herramienta ya existe");
+                }
+            },
+            error: function (error) {
+                alert(error);
+            },
+            beforedSend: function () {
+
+            }
+        });
+    }
+</script>
 
 
