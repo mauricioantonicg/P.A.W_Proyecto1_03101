@@ -179,8 +179,6 @@
     //Almacenar el registro de un prestamo de herramienta en la base de datos
     function GuardarRegPrestamoHerramienta() {
 
-        alert("Registrando el prestamo de la herramienta");
-
         //Datos del formulario herramienta
         var idPerson = $(".srch_idUsuario").val();
         var idHerramient = $(".hdn_idHerramienta").val();
@@ -195,8 +193,6 @@
             fechaDevoluHerramienta,
             estadoPrestamoHerramienta
         }
-
-        alert("Inicio Ajax");
 
         //Enviar datos al controlador
         jQuery.ajax({

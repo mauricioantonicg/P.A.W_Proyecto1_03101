@@ -116,12 +116,12 @@ namespace CP_Control_Herramientas.Controllers
 
       //Registrar herramienta en base de datos
       [HttpPost]
-      public JsonResult GuardarRegPrestaHerramienta(prestamoHerramienta prestamoHerramienta)
+      public JsonResult GuardarRegPrestaHerramienta(prestamoHerramienta prestamoHerramient)
       {
          object resultado;
          string mensaje = string.Empty;
 
-         resultado = new CNX_ET_PrestamoHerramienta().RegistrarPrestamoHerramientaBD(prestamoHerramienta, out mensaje);
+         resultado = new CNX_ET_PrestamoHerramienta().RegistrarPrestamoHerramientaBD(prestamoHerramient, out mensaje);
 
          return Json(new { resultado = resultado, mensage = mensaje }, JsonRequestBehavior.AllowGet);
       }      
