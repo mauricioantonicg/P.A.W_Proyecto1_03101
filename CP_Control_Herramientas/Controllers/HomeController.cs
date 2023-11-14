@@ -90,20 +90,40 @@ namespace CP_Control_Herramientas.Controllers
          return cantidadHerramientas;
       }
 
+      //Consultar lista de herramientas y obtener una herramienta por nombre 
+      [HttpGet]
+      public JsonResult BuscarHerramienta(string nombreHerramienta)
+      {
+
+         List<herramienta> listaHerramienta = new List<herramienta>();
+
+         listaHerramienta = new CNX_ET_Herramienta().BuscarHerramienta(nombreHerramienta);
+
+         return Json(listaHerramienta, JsonRequestBehavior.AllowGet);
+      }
+
       //Registrar herramienta en base de datos
       [HttpPost]
       public JsonResult GuardarHerramienta(herramienta herramient)
       {
-
          object resultado;
          string mensaje = string.Empty;
 
-
          resultado = new CNX_ET_Herramienta().RegistrarHerramientaBD(herramient, out mensaje);
-
-
 
          return Json(new { resultado = resultado, mensage = mensaje }, JsonRequestBehavior.AllowGet);
       }
+
+      //Registrar herramienta en base de datos
+      [HttpPost]
+      public JsonResult GuardarRegPrestaHerramienta(prestamoHerramienta prestamoHerramienta)
+      {
+         object resultado;
+         string mensaje = string.Empty;
+
+         resultado = new CNX_ET_PrestamoHerramienta().RegistrarPrestamoHerramientaBD(prestamoHerramienta, out mensaje);
+
+         return Json(new { resultado = resultado, mensage = mensaje }, JsonRequestBehavior.AllowGet);
+      }      
    }
 }

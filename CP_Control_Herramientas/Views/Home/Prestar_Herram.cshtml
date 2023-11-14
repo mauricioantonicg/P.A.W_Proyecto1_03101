@@ -8,9 +8,9 @@
 
     <form id="prestar_Herramiennta">
 
-        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex flex-wrap" >
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex flex-wrap">
 
-            <div class="col-12 col-sm-12 col-md-7 col-lg-5 col-xl-4" >
+            <div class="col-12 col-sm-12 col-md-7 col-lg-5 col-xl-4">
                 <label for="buscarColabPrestHerram" class="badge bg-secondary">Buscar colaborador</label>
                 <div class="input-group">
                     <input type="search" name="buscarColabPrestHerram" class="srch_idUsuario form-control rounded mb-3" placeholder="Cédula" aria-label="Search" aria-describedby="search-addon" />
@@ -18,12 +18,12 @@
                 </div>
             </div>
 
-            <div class="col-12 col-sm-12 col-md-5 col-lg-7 col-xl-8" >
+            <div class="col-12 col-sm-12 col-md-5 col-lg-7 col-xl-8">
                 <label for="nombreCompleto" class="badge bg-secondary">Nombre</label>
-                <input type="text" name="nombreCompleto" value="" class="txt_NombrePersona form-control mb-3 mw-100" placeholder="Nombre completo" />
+                <input type="text" name="nombreCompleto" value="" class="txt_NombrePersona form-control mb-3 mw-100" readonly />
             </div>
 
-        </div>        
+        </div>
 
         <div>
             <label for="cantidHerramPrestadas" class="badge bg-secondary">Cantidad de herramientas prestadas al colaborador actualmente</label>
@@ -35,8 +35,9 @@
             <div class="col-12 col-sm-12 col-md-7 col-lg-5 col-xl-4">
                 <label for="buscarHerramPrest" class="badge bg-secondary">Buscar herramienta</label>
                 <div class="input-group">
+                    <input type="hidden" name="idHerramienta" class="hdn_idHerramienta"/>
                     <input type="search" name="buscarHerramPrest" class="sch_BuscaHerram form-control rounded mb-3" placeholder="Nombre herramienta" aria-label="Search" aria-describedby="search-addon" />
-                    <button type="button" class="btn_BuscarHerram btn btn-outline-secondary mb-3">Buscar</button>
+                    <button type="button" class="btn_BuscarHerram btn btn-outline-secondary mb-3" onclick="BuscarHerramientaBD()">Buscar</button>
                 </div>
             </div>
 
@@ -46,11 +47,11 @@
             </div>
 
         </div>
-        
+
 
         <div>
             <label for="cantidHerramAPrestar" class="badge bg-secondary">Cantidad de herramientas a prestar</label>
-            <input type="number" name="cantidHerramAPrestar" value="" class="num_CantHerraAPrest form-control mb-3 mw-100" placeholder="Cantidad herramientas solicitadas" />
+            <input type="number" name="cantidHerramAPrestar" value="1" class="num_CantHerraAPrest form-control mb-3 mw-100" placeholder="Cantidad herramientas solicitadas" />
         </div>
 
         <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-flex flex-wrap">
@@ -60,7 +61,7 @@
                     <label for="fechaDePrestamoHerram" class="badge bg-secondary">Fecha de registro del prestamo de la herramienta</label>
                     <input type="date" name="fechaDePrestamoHerram" value="" class="dt_FechaPresHerram form-control mb-3 mw-100" readonly />
                 </div>
-                
+
             </div>
 
             <div class="col-12 col-sm-12 col-md-5 col-lg-7 col-xl-8">
@@ -68,7 +69,7 @@
                 <input type="date" name="fechaDevolHerram" value="" class="dt_FechaDevolHerram form-control mb-3 mw-100" />
             </div>
 
-        </div>        
+        </div>
 
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex p-2 mt-2">
             <input type="button" name="btn_CancelarRegPrestHerram" value="Cancelar" class="btn_CancRegPrstHerram btn btn-outline-secondary btn-sm mw-100" onclick="CancelarRegPrestamoHerramienta()" />
@@ -85,6 +86,11 @@
         var date = new Date();
         var mes = date.getUTCMonth() + 1;
         $(".dt_FechaPresHerram").val(date.getFullYear() + "-" + mes + "-" + date.getDate());
+
+        //Establecer la fecha actual
+        var date = new Date();
+        var mes = date.getUTCMonth() + 1;
+        $(".dt_FechaDevolHerram").val(date.getFullYear() + "-" + mes + "-" + date.getDate());
 
     }
 
@@ -107,61 +113,6 @@
                     $(".num_CantHerramPrestadas").val(data.length);
                 } else {
                     alert("El usuario no esta registrado o no tiene herramientas prestadas");
-                }                               
-            },
-            error: function (error) {
-                alert(error);
-            },
-            beforedSend: function () {
-
-            }
-        });
-    }
-
-    function CancelarRegPrestamoHerramienta() {
-        $(".srch_idUsuario").val("");
-        $(".txt_NombrePersona").val("");
-        $(".num_CantHerramPrestadas").val("");
-    }
-
-    function LimpiarRegPrestamoHerramienta() {
-        $(".srch_idUsuario").val("");
-        $(".txt_NombrePersona").val("");
-        $(".num_CantHerramPrestadas").val("");
-    }
-
-    @*function GuardarRegPrestamoHerramienta() {
-        //Datos del formulario herramienta
-        var idHerramienta = $(".txt_CodigoHerramienta").val();
-        var nombreHerramienta = $(".txt_NombreHerramienta").val();
-        var descripcionHerramienta = $(".txt_DescripHerramienta").val();
-        var cantidHerramienta = $(".txt_cantHerramientas ").val();
-
-
-        var Herramienta = {
-            idHerramienta,
-            nombreHerramienta,
-            descripcionHerramienta,
-            cantidHerramienta
-        }
-
-        //Enviar datos al controlador
-        jQuery.ajax({
-            url: '@Url.Action("GuardarHerramienta", "Home")',
-            type: "POST",
-            data: JSON.stringify({ herramient: Herramienta }),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-
-                /*debugger;*/
-
-                if (data.resultado == 1) {
-                    alert("Herramienta registrada satisfactoriamente");
-                    LimpiarRegHerramienta();
-                    ObtenerIdHerramienta();
-                } else {
-                    alert("La herramienta ya existe");
                 }
             },
             error: function (error) {
@@ -171,7 +122,108 @@
 
             }
         });
-    }*@
+    }
+
+    //Obtener datos de una herramienta de la base de datos
+    function BuscarHerramientaBD() {
+        var nombreHerramienta = $(".sch_BuscaHerram").val();
+
+        //Enviar datos al controlador
+        jQuery.ajax({
+            url: '@Url.Action("BuscarHerramienta", "Home")',
+            type: "Get",
+            data: { nombreHerramienta },
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+
+                /*debugger;*/
+
+                if (data.length > 0) {
+                    $(".hdn_idHerramienta").val(data[0].idHerramienta);
+                    $(".sch_BuscaHerram").val(data[0].nombreHerramienta);
+                    $(".num_CantHerraDisp").val(data[0].cantidHerramienta);
+                } else {
+                    alert("La heramienta no existe, ingrese un nombre de herramienta diferente");
+                }
+            },
+            error: function (error) {
+                alert(error);
+            },
+            beforedSend: function () {
+
+            }
+        });
+    }
+
+    //Cancelar el resgitro de un prestamo de herramienta
+    function CancelarRegPrestamoHerramienta() {
+        $(".srch_idUsuario").val("");
+        $(".txt_NombrePersona").val("");
+        $(".num_CantHerramPrestadas").val("");
+        $(".sch_BuscaHerram").val("");
+        $(".num_CantHerraDisp").val("");
+        $(".num_CantHerraAPrest").val("1");
+    }
+
+    //Limpiar campos formulario prestamo deherramienta
+    function LimpiarRegPrestamoHerramienta() {
+        $(".srch_idUsuario").val("");
+        $(".txt_NombrePersona").val("");
+        $(".num_CantHerramPrestadas").val("");
+        $(".sch_BuscaHerram").val("");
+        $(".num_CantHerraDisp").val("");
+        $(".num_CantHerraAPrest").val("1");
+    }
+
+    //Almacenar el registro de un prestamo de herramienta en la base de datos
+    function GuardarRegPrestamoHerramienta() {
+
+        alert("Registrando el prestamo de la herramienta");
+
+        //Datos del formulario herramienta
+        var idPerson = $(".srch_idUsuario").val();
+        var idHerramient = $(".hdn_idHerramienta").val();
+        var fechaPrestamoHerramienta = $(".dt_FechaPresHerram").val();
+        var fechaDevoluHerramienta = $(".dt_FechaDevolHerram ").val();
+        var estadoPrestamoHerramienta = "true";
+
+        var PrestamoHerramienta = {
+            idPerson,
+            idHerramient,
+            fechaPrestamoHerramienta,
+            fechaDevoluHerramienta,
+            estadoPrestamoHerramienta
+        }
+
+        alert("Inicio Ajax");
+
+        //Enviar datos al controlador
+        jQuery.ajax({
+            url: '@Url.Action("GuardarRegPrestaHerramienta", "Home")',
+            type: "POST",
+            data: JSON.stringify({ PrestamoHerramient: PrestamoHerramienta }),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+
+                /*debugger;*/
+
+                if (data.resultado == 1) {
+                    alert("Registro almacenado satisfactoriamente");
+                    LimpiarRegPrestamoHerramienta();
+                } else {
+                    alert("Prestamo no se registro");
+                }
+            },
+            error: function (error) {
+                alert(error);
+            },
+            beforedSend: function () {
+
+            }
+        });
+    }
 </script>
 
 

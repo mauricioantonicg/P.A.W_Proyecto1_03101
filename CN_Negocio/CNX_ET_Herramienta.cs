@@ -59,5 +59,11 @@ namespace CN_Negocio
             return 0;
          }
       }
-   }
+
+      //Consultar y obtener un objeto herramienta 
+      public List<herramienta> BuscarHerramienta(string nombreHerramienta)
+      {
+         return objHerramienta.BuscarHerramientaBD(nombreHerramienta);
+      }
+   }   
 }

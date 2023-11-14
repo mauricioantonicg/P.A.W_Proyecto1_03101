@@ -55,7 +55,7 @@ namespace CD_Datos
          return cantidadHerramientas;
       }
 
-      //Registrar una nueva persona en la tabla persona de la base de datos  
+      //Registrar una nueva herramienta en la tabla persona de la base de datos  
       public int RegistrarHerramienta(herramienta herramient, out string Mensaje)
       {
          int resultado = 0;
@@ -95,6 +95,53 @@ namespace CD_Datos
 
          //Retornar si se guardo el registro correctamente 
          return resultado;
+      }
+
+      //Obtener datos de una herramienta
+      public List<herramienta> BuscarHerramientaBD(string nombreHerramienta)
+      {
+
+         List<herramienta> listaHerramientas = new List<herramienta>();
+
+         try
+         {
+            //Crear instancia de conexion a la base de datos 
+            using (SqlConnection conexionBD = new SqlConnection(BDConexion.conexionBD))
+            {
+               //String a ejecutar en la base de datos 
+               string query = "select idHerramienta, nombreHerramienta, cantidHerramienta from herramienta where nombreHerramienta  = '" + nombreHerramienta + "'";
+
+               //Crear el envio del sript a ejecutar en la base de datos 
+               SqlCommand cmd = new SqlCommand(query, conexionBD);
+               cmd.CommandType = CommandType.Text;
+
+               //Abrir conexion con la base de datos
+               conexionBD.Open();
+               
+               //Ejecutar o enviar el script a la base de datos con la consulta 
+               using (SqlDataReader reader = cmd.ExecuteReader())
+               {
+                  while (reader.Read())
+                  {
+                     //Leer la respuesta de la base de datos
+                     //Crear objeto persona y agregarlo a la lista de personas 
+                     listaHerramientas.Add(new herramienta()
+                     {
+                        idHerramienta = Convert.ToInt32(reader["idHerramienta"].ToString()),
+                        nombreHerramienta = reader["nombreHerramienta"].ToString(),
+                        cantidHerramienta = Convert.ToInt32(reader["cantidHerramienta"].ToString())
+                     });
+                  }
+               }
+            }
+         }
+         catch (Exception)
+         {
+            listaHerramientas = new List<herramienta>();
+         }
+
+         //Retornar la cantidad de herramientas
+         return listaHerramientas;
       }
    }
 }
