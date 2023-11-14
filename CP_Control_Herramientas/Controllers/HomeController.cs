@@ -124,6 +124,17 @@ namespace CP_Control_Herramientas.Controllers
          resultado = new CNX_ET_PrestamoHerramienta().RegistrarPrestamoHerramientaBD(prestamoHerramient, out mensaje);
 
          return Json(new { resultado = resultado, mensage = mensaje }, JsonRequestBehavior.AllowGet);
-      }      
+      }
+
+      //Consultar lista de herramientas prestadas por usuario 
+      [HttpGet]
+      public JsonResult ObtenerUsuariosConHerramPrestadas(int idUsuario)
+      {
+         List<devolucionHerramienta> listaHerramPrestPers = new List<devolucionHerramienta>();
+
+         listaHerramPrestPers = new CNX_ET_DevolHerramienta().ConsHerramPrestPers(idUsuario);
+
+         return Json(listaHerramPrestPers, JsonRequestBehavior.AllowGet);
+      }
    }
 }

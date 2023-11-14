@@ -13,46 +13,176 @@
                 <div class="col-12 col-sm-12 col-md-11 col-lg-11 col-xl-11">
                     <label for="buscarColabDevolHerram" class="badge bg-secondary">Buscar colaborador</label>
                     <div class="input-group">
-                        <input type="search" name="buscarColabDevolHerram" class="form-control rounded mb-3 mw-100" placeholder="Cédula" aria-label="Search" aria-describedby="search-addon" />
-                        <button type="button" class="btn btn-outline-secondary mb-3">Buscar</button>
+                        <input type="search" name="buscarColabDevolHerram" class="src_IdColaboradorPrstHerram form-control rounded mb-3 mw-100" placeholder="Cédula" aria-label="Search" aria-describedby="search-addon" />
+                        <button type="button" class="btn btn-outline-secondary mb-3" onclick="BuscarDatosPersona()">Buscar</button>
                     </div>
                 </div>
 
                 <div class="col-12 col-sm-12 col-md-11 col-lg-11 col-xl-11">
                     <label for="nombreCompleto" class="badge bg-secondary">Nombre</label>
-                    <input type="text" name="nombreCompleto" value="" class="form-control mb-3 mw-100" placeholder="Nombre completo" />
+                    <input type="text" name="nombreCompleto" value="" class="txt_NombreCompletoPers form-control mb-3 mw-100" placeholder="Nombre completo" />
                 </div>
             </div>
 
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex flex-column">
                 <div class="">
                     <label for="fechaDePrestamoHerram" class="badge bg-secondary">Fecha de registro del prestamo de la herramienta</label>
-                    <input type="date" name="fechaDePrestamoHerram" value="" class="form-control mb-3 mw-100" readonly />
+                    <input type="date" name="fechaDePrestamoHerram" value="" class="dt_FechaPrestHerram form-control mb-3 mw-100" readonly />
                 </div>
 
                 <div class="">
                     <label for="fechaDevolHerram" class="badge bg-secondary">Fecha de registro de devolución de la herramienta</label>
-                    <input type="date" name="fechaDevolHerram" value="" class="form-control mb-3 mw-100" readonly />
+                    <input type="date" name="fechaDevolHerram" value="" class="dt_FechaDevHerram form-control mb-3 mw-100" readonly />
                 </div>
             </div>
         </div>
 
         <div>
             <label for="cantidHerramPrestadas" class="badge bg-secondary">Cantidad de herramientas prestadas</label>
-            <input type="number" name="cantidHerramPrestadas" value="" class="form-control mb-3 mw-100" placeholder="Cantidad de herramientas prestadas" readonly />
+            <input type="number" name="cantidHerramPrestadas" value="" class="num_cantHerraPrestPers form-control mb-3 mw-100" readonly />
         </div>
 
         <div>
             <label for="listaHerramPrest" class="badge bg-secondary">Lista de herramientas prestadas</label>
-            
+
+            <table name="listaHerramPrest" class="display cell-border" style="width: 100%">
+                <tbody>
+                    <tr>
+                        <td class="td_Herram1"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_Herram2"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_Herram3"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_Herram4"></td>
+                    </tr>
+                    <tr>
+                        <td class="td_Herram"></td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
 
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 d-flex p-2 mt-2">
-            <input type="button" name="btn_CancelarRegDevolHerram" value="Cancelar" class="btn btn-outline-secondary btn-sm mw-100" />
-            <input type="button" name="btn_LimpiarRegDevolHerram" value="Limpiar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
-            <input type="button" name="btn_GuardarRegDevolHerram" value="Guardar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" />
+            <input type="button" name="btn_CancelarRegDevolHerram" value="Cancelar" class="btn btn-outline-secondary btn-sm mw-100" onclick="CancelarRegDevHerramienta()" />
+            <input type="button" name="btn_LimpiarRegDevolHerram" value="Limpiar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" onclick="LimpiarRegDevHerramienta()" />
+            <input type="button" name="btn_GuardarRegDevolHerram" value="Guardar" class="btn btn-outline-secondary btn-sm mw-100 ms-1" onclick="" />
         </div>
     </form>
 </main>
+
+<script>
+    window.onload = function () {
+
+        //Establecer la fecha actual
+        var date = new Date();
+        var mes = date.getUTCMonth() + 1;
+        $(".dt_FechaPrestHerram").val(date.getFullYear() + "-" + mes + "-" + date.getDate());
+
+        //Establecer la fecha actual
+        var date = new Date();
+        var mes = date.getUTCMonth() + 1;
+        $(".dt_FechaDevHerram").val(date.getFullYear() + "-" + mes + "-" + date.getDate());
+
+    }
+
+    //Obtener datos de la persona y herramientas prestadas
+    function BuscarDatosPersona() {
+
+        var idUsuario = $(".src_IdColaboradorPrstHerram").val();
+
+        //Consultar por un colaborador
+        jQuery.ajax({
+            url: '@Url.Action("ObtenerUsuariosConHerramPrestadas", "Home")',
+            type: "Get",
+            data: { idUsuario },
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+
+                if (data.length > 0) {
+                    $(".src_IdColaboradorPrstHerram").val(data[0].idPersonaa);
+                    $(".txt_NombreCompletoPers").val(data[0].nombrePersona);
+                    $(".num_cantHerraPrestPers").val(data.length);
+
+                    var cantReg = data.length;
+
+                    if (cantReg = 1) {
+                        $(".td_Herram1").text("Id: " + data[0].idHerramientaa + " nombre: " + data[0].nombreHerramienta + " Fecha de prestamo: " + data[0].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[0].fechaDevolucionHerramienta);
+                    }
+
+                    if (cantReg = 2) {
+                            $(".td_Herram1").text("Id: " + data[0].idHerramientaa + " nombre: " + data[0].nombreHerramienta + " Fecha de prestamo: " + data[0].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[0].fechaDevolucionHerramienta);
+                            $(".td_Herram2").text("Id: " + data[1].idHerramientaa + " nombre: " + data[1].nombreHerramienta + " Fecha de prestamo: " + data[1].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[1].fechaDevolucionHerramienta);
+                    }
+
+                    if (cantReg = 3) {
+                        $(".td_Herram1").text("Id: " + data[0].idHerramientaa + " nombre: " + data[0].nombreHerramienta + " Fecha de prestamo: " + data[0].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[0].fechaDevolucionHerramienta);
+                        $(".td_Herram2").text("Id: " + data[1].idHerramientaa + " nombre: " + data[1].nombreHerramienta + " Fecha de prestamo: " + data[1].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[1].fechaDevolucionHerramienta);
+                        $(".td_Herram3").text("Id: " + data[2].idHerramientaa + " nombre: " + data[2].nombreHerramienta + " Fecha de prestamo: " + data[2].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[2].fechaDevolucionHerramienta);
+                    } 
+
+                    if (cantReg = 4) {
+                        $(".td_Herram1").text("Id: " + data[0].idHerramientaa + " nombre: " + data[0].nombreHerramienta + " Fecha de prestamo: " + data[0].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[0].fechaDevolucionHerramienta);
+                        $(".td_Herram2").text("Id: " + data[1].idHerramientaa + " nombre: " + data[1].nombreHerramienta + " Fecha de prestamo: " + data[1].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[1].fechaDevolucionHerramienta);
+                        $(".td_Herram3").text("Id: " + data[2].idHerramientaa + " nombre: " + data[2].nombreHerramienta + " Fecha de prestamo: " + data[2].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[2].fechaDevolucionHerramienta);
+                        $(".td_Herram4").text("Id: " + data[3].idHerramientaa + " nombre: " + data[3].nombreHerramienta + " Fecha de prestamo: " + data[3].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[3].fechaDevolucionHerramienta);
+                    }
+
+                    if (cantReg = 5) {
+                        $(".td_Herram1").text("Id: " + data[0].idHerramientaa + " nombre: " + data[0].nombreHerramienta + " Fecha de prestamo: " + data[0].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[0].fechaDevolucionHerramienta);
+                        $(".td_Herram2").text("Id: " + data[1].idHerramientaa + " nombre: " + data[1].nombreHerramienta + " Fecha de prestamo: " + data[1].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[1].fechaDevolucionHerramienta);
+                        $(".td_Herram3").text("Id: " + data[2].idHerramientaa + " nombre: " + data[2].nombreHerramienta + " Fecha de prestamo: " + data[2].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[2].fechaDevolucionHerramienta);
+                        $(".td_Herram4").text("Id: " + data[3].idHerramientaa + " nombre: " + data[3].nombreHerramienta + " Fecha de prestamo: " + data[3].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[3].fechaDevolucionHerramienta);
+                        $(".td_Herram5").text("Id: " + data[4].idHerramientaa + " nombre: " + data[4].nombreHerramienta + " Fecha de prestamo: " + data[4].fechaDePrestamoHerramienta + " Fecha de devolucion: " + data[4].fechaDevolucionHerramienta);
+                    }
+
+                    alert("Final");
+                    
+
+
+                } else {
+                    alert("El usuario no esta registrado o no tiene herramientas por devolver");
+                }
+            },
+            error: function (error) {
+                alert(error);
+            },
+            beforedSend: function () {
+
+            }
+        });
+    }
+
+    //Cancelar el resgitro de un devolucion de herramienta
+    function CancelarRegDevHerramienta() {
+        $(".src_IdColaboradorPrstHerram").val("");
+        $(".txt_NombreCompletoPers").val("");
+        $(".num_cantHerraPrestPers").val("");
+
+        $(".td_Herram1").text("");
+        $(".td_Herram2").text("");
+        $(".td_Herram3").text("");
+        $(".td_Herram4").text("");
+        $(".td_Herram5").text("");
+    }
+
+    //Limpiar campos formulario devolucion de herramienta
+    function LimpiarRegDevHerramienta() {
+        $(".src_IdColaboradorPrstHerram").val("");
+        $(".txt_NombreCompletoPers").val("");
+        $(".num_cantHerraPrestPers").val("");
+
+        $(".td_Herram1").text("");
+        $(".td_Herram2").text("");
+        $(".td_Herram3").text("");
+        $(".td_Herram4").text("");
+        $(".td_Herram5").text("");
+    }
+</script>
 
 

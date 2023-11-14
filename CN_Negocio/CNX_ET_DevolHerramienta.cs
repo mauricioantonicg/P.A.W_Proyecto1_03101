@@ -13,14 +13,21 @@ namespace CN_Negocio
 
       //Instancia clase manejador devolucion de herramientas
       CNX_Recibir_Herramienta ObjDevlherramienta = new CNX_Recibir_Herramienta();
-      public int DevolucionHerramienta(int idPersona, out string Mensage)
+      public int DevolucionHerramienta(int idPersona, out string Mensaje)
       {
 
-         Mensage = string.Empty;
+         Mensaje = string.Empty;
 
-         Mensage = "";
+         Mensaje = "";
 
-         return ObjDevlherramienta.DevolucionHerramienta(idPersona, out Mensage);
+         return ObjDevlherramienta.DevolucionHerramienta(idPersona, out Mensaje);
+      }
+
+      //Consultar y obtener usuarios y herramientas que tiene prstadas 
+      public List<devolucionHerramienta> ConsHerramPrestPers(int idPersona) {
+
+         return ObjDevlherramienta.ConsHerramPrestPersBD(idPersona);
+
       }
    }
 }
