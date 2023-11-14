@@ -39,3 +39,74 @@ estadoDevolucionHerramienta bit default 1 not null,
 detallesDevolucionHerramienta varchar(100) not null
 )
 go
+
+create proc sp_RegistrarPersona(
+@idPersona int,
+@nombrePersona varchar(45),
+@apellido1 varchar(45),
+@apellido2 varchar(45),
+@fechaRegistro date,
+@estadoPersona bit,
+@Mensaje varchar (300) output,
+@Resultado int output
+)
+as
+begin
+   SET @Resultado = 0
+
+   if NOT EXISTS (select * from persona where idPersona = @idPersona)
+   begin
+      insert into persona(idPersona, nombrePersona, apellido1, apellido2, fechaRegistro, estadoPersona) values 
+	                     (@idPersona, @nombrePersona, @apellido1, @apellido2, @fechaRegistro, @estadoPersona)
+
+	  SET @Resultado = 1
+   end
+   else
+   SET @Mensaje = 'El usuario ya existe'   
+end
+
+create proc sp_RegistrarHerramienta(
+@idHerramienta int,
+@nombreHerramienta varchar(45),
+@descripcionHerramienta varchar(100),
+@cantidHerramienta int,
+@Mensaje varchar (300) output,
+@Resultado int output
+)
+as
+begin
+   SET @Resultado = 0
+
+   if NOT EXISTS (select * from herramienta where idHerramienta = @idHerramienta)
+   begin
+      insert into herramienta(nombreHerramienta, descripcionHerramienta, cantidHerramienta) values 
+	                     (@nombreHerramienta, @descripcionHerramienta, @cantidHerramienta)
+
+	  SET @Resultado = 1
+   end
+   else
+   SET @Mensaje = 'La herramienta ya existe'   
+end
+
+create proc sp_RegistrarPrestamoHerramienta(
+@idPerson int,	
+@idHerramient int,
+@fechaPrestamoHerramienta date,
+@fechaDevoluHerramienta date,
+@Mensaje varchar (300) output,
+@Resultado int output
+)
+as
+begin
+   SET @Resultado = 0
+
+   if EXISTS (select * from prestamoHerramienta where idPerson = @idPerson)
+   begin
+      insert into prestamoHerramienta(idPerson, idHerramient, fechaPrestamoHerramienta, fechaDevoluHerramienta, estadoPrestamoHerramienta) 
+	       values (@idPerson, @idHerramient, @fechaPrestamoHerramienta, @fechaDevoluHerramienta, 1)
+
+	  SET @Resultado = 1
+   end
+   else
+   SET @Mensaje = 'El usuario no existe, registre el usuario'   
+end
